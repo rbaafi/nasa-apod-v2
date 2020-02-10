@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS `Apod`
     `hd_url`      TEXT
 );
 
+
 CREATE UNIQUE INDEX IF NOT EXISTS `index_Apod_date` ON `Apod` (`date`);
 
 CREATE TABLE IF NOT EXISTS `Access`
