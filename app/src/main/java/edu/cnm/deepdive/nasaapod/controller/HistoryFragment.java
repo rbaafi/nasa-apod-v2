@@ -12,10 +12,9 @@ import android.view.ViewGroup;
 
 import androidx.lifecycle.ViewModelProvider;
 import edu.cnm.deepdive.nasaapod.R;
-import edu.cnm.deepdive.nasaapod.model.entity.Apod;
 import edu.cnm.deepdive.nasaapod.model.pojo.ApodWithStats;
+import edu.cnm.deepdive.nasaapod.view.ApodAdapter;
 import edu.cnm.deepdive.nasaapod.viewmodel.MainViewModel;
-import java.util.Arrays;
 
 public class HistoryFragment extends Fragment {
 
@@ -23,22 +22,21 @@ public class HistoryFragment extends Fragment {
   private MainViewModel viewModel;
 
   @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
-    viewModel.getAllApodSummaries().observe(getViewLifecycleOwner(), (apods) -> {
-      ArrayAdapter<ApodWithStats> adapter =
-          new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, apods);
-      apodList.setAdapter(adapter);
-    });
-  }
-
-  @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     View layout = inflater.inflate(R.layout.fragment_history, container, false);
     apodList = layout.findViewById(R.id.apod_list);
     return layout;
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
+    viewModel.getAllApodSummaries().observe(getViewLifecycleOwner(), (apods) -> {
+      ApodAdapter adapter = new ApodAdapter(getContext(), apods);
+      apodList.setAdapter(adapter);
+    });
   }
 
 }
