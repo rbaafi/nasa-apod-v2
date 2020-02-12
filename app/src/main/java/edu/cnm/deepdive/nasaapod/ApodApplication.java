@@ -4,6 +4,7 @@ import android.app.Application;
 import com.facebook.stetho.Stetho;
 import com.squareup.picasso.Picasso;
 import edu.cnm.deepdive.nasaapod.service.ApodDatabase;
+import io.reactivex.schedulers.Schedulers;
 
 public class ApodApplication extends Application {
 
@@ -17,7 +18,9 @@ public class ApodApplication extends Application {
             .build()
     );
     ApodDatabase.setContext(this);
-    new Thread(() -> ApodDatabase.getInstance().getApodDao().delete()).start();
+    ApodDatabase.getInstance().getApodDao().delete()
+        .subscribeOn(Schedulers.io())
+        .subscribe();
   }
 
 }
