@@ -1,7 +1,9 @@
 package edu.cnm.deepdive.nasaapod.controller;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog.Builder;
@@ -15,6 +17,9 @@ public class InfoFragment extends DialogFragment {
   public static final String DESCRIPTION_KEY = "description";
   public static final String COPYRIGHT_KEY = "copyright";
   public static final String DATE_KEY = "date";
+
+  private AlertDialog alert;
+  private View dialogView;
 
   @NonNull
   @Override
